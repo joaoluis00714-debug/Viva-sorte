@@ -841,9 +841,15 @@
     }
 
     function comprar() {
-      const valor = (quantidade * valorUnitario).toFixed(2);
-      window.location.href = `/checkout.html?qtd=${quantidade}&valor=${valor}`;
-    }
+  const valor = (quantidade * valorUnitario).toFixed(2);
+  const imagem = document.querySelector('.banner img')?.src || 'product.jpg';
+
+  window.location.href =
+    `/checkout.html?qtd=${quantidade}` +
+    `&valor=${valor}` +
+    `&unit=${valorUnitario}` +
+    `&img=${encodeURIComponent(imagem)}`;
+}
 
     atualizarTela();
   </script>
@@ -878,9 +884,16 @@ document.querySelectorAll('.sorteio-card').forEach(card => {
   });
 
   btnCarrinho.addEventListener('click', () => {
-    const valor = (quantidade * price).toFixed(2);
-    window.location.href = `/checkout.html?qtd=${quantidade}&valor=${valor}`;
-  });
+  const valor = (quantidade * price).toFixed(2);
+  const imagem = card.querySelector('img').getAttribute('src');
+
+  window.location.href =
+    `/checkout.html?qtd=${quantidade}` +
+    `&valor=${valor}` +
+    `&unit=${price}` +
+    `&img=${encodeURIComponent(imagem)}`;
+});
+
 
   atualizarTotal(); // garante valor inicial correto
 });
@@ -891,6 +904,16 @@ document.querySelectorAll('.sorteio-card').forEach(card => {
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 
