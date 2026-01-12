@@ -261,7 +261,7 @@
   #timer {
     font-size: 16px;
   }
-}
+
 
 
     
@@ -274,10 +274,12 @@
     <h2>Finalizar Pedido</h2>
 
     <div class="produto">
-      <img src="product.jpg" alt="Produto">
+      <img id="produtoImg" src="product.jpg" alt="Produto">
       <div>
+    
         <div class="produto-title">Rifa do Milhão Viva Sorte</div>
-        <small>Valor unitário: <b>R$ 1,99</b></small>
+        <small>Valor unitário: <b id="valorUnitario">R$ 0,00</b></small>
+
       </div>
     </div>
 
@@ -325,34 +327,44 @@ const params = new URLSearchParams(window.location.search);
 
 let quantidade = parseInt(params.get("qtd"), 10);
 let valorTotal = parseFloat(params.get("valor"));
+const imagemProduto = params.get("img");
+const valorUnitParam = parseFloat(params.get("unit"));
+
 
 if (!quantidade || quantidade < 1) quantidade = 1;
 if (!valorTotal || valorTotal <= 0) valorTotal = 1.99;
 
-const valorUnitario = valorTotal / quantidade;
+let valorUnitario = valorUnitParam && valorUnitParam > 0
+  ? valorUnitParam
+  : valorTotal / quantidade;
+
 
 /* =============================
    🔹 ELEMENTOS
 ============================= */
 const qtdEl = document.getElementById("qtd");
 const totalEl = document.getElementById("total");
+const valorUnitarioEl = document.getElementById("valorUnitario");
+
 
 /* =============================
    🔹 TELA
 ============================= */
 function atualizarTela() {
   qtdEl.innerText = quantidade;
+
+  valorUnitarioEl.innerText =
+    "R$ " + valorUnitario.toFixed(2);
+
   totalEl.innerText =
     "R$ " + (quantidade * valorUnitario).toFixed(2);
 }
 
-function alterar(v) {
-  quantidade += v;
-  if (quantidade < 1) quantidade = 1;
-  atualizarTela();
+atualizarTela();
+if (imagemProduto) {
+  document.getElementById("produtoImg").src = imagemProduto;
 }
 
-atualizarTela();
 
 /* =============================
    🔹 COPIAR PIX
@@ -464,7 +476,20 @@ window.addEventListener("pageshow", (event) => {
     window.location.href = "/cancelado.html";
   }
 });
+
+
+
+function alterar(valor) {
+  quantidade += valor;
+
+  if (quantidade < 1) {
+    quantidade = 1;
+  }
+
+  atualizarTela();
+}
 </script>
+
 
 
 
@@ -472,6 +497,12 @@ window.addEventListener("pageshow", (event) => {
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 
