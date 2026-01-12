@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Confirmado</title>
+
+    <!-- BLOQUEAR CACHE -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .check {
+            font-size: 70px;
+            color: #4CAF50;
+        }
+
+        h2 {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        p {
+            margin-top: 5px;
+            color: #555;
+        }
+
+        .cotas-box {
+            margin-top: 20px;
+        }
+
+        .cotas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .cotas span {
+            background: #f0f0f0;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .btn {
+            margin-top: 25px;
+            display: inline-block;
+            padding: 12px 25px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="check">✔</div>
+        <h2>Pagamento Aprovado!</h2>
+        <p>Obrigado pela sua compra 😊</p>
+
+        <div class="cotas-box">
+            <p><strong>Suas cotas:</strong></p>
+            <div id="cotas" class="cotas"></div>
+        </div>
+
+        <a class="btn" href="index.html">Voltar ao site</a>
+    </div>
+
+<script>
+    // 🔒 Bloqueia acesso sem pagamento aprovado
+    const pago = localStorage.getItem("pagamento_aprovado");
+    if (pago !== "true") {
+        window.location.href = "cancelado.html";
+    }
+
+    // 🔢 Configuração
+    const valorPago = Number(localStorage.getItem("valor_pago"));
+   const valorPorCota = Number(localStorage.getItem("valor_cota")); // 🔴 ALTERE PARA O VALOR REAL DA COTA
+
+    // 🧠 Gerar cotas aleatórias
+    function gerarCotas(qtd, min = 1, max = 9999) {
+        const set = new Set();
+        while (set.size < qtd) {
+            const n = Math.floor(Math.random() * (max - min + 1)) + min;
+            set.add(n.toString().padStart(4, "0"));
+        }
+        return Array.from(set);
+    }
+
+    const quantidade = Math.floor(valorPago / valorPorCota);
+
+    // Evita gerar novamente ao atualizar
+    let cotas = JSON.parse(localStorage.getItem("cotas_geradas"));
+
+    if (!cotas) {
+        cotas = gerarCotas(quantidade);
+        localStorage.setItem("cotas_geradas", JSON.stringify(cotas));
+    }
+
+    // Mostrar cotas
+    const div = document.getElementById("cotas");
+    cotas.forEach(cota => {
+        const span = document.createElement("span");
+        span.textContent = cota;
+        div.appendChild(span);
+    });
+
+    // Limpa flag de pagamento (opcional)
+    localStorage.removeItem("pagamento_aprovado");
+</script>
+
+</body>
+</html>

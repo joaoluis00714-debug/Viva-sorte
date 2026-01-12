@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Cancelado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8d7da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.20);
+            animation: fadeIn 0.6s ease;
+            border-left: 10px solid #b71c1c;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .x {
+            font-size: 70px;
+            color: #b71c1c;
+        }
+
+        h2 {
+            color: #b71c1c;
+        }
+
+        .btn {
+            margin-top: 25px;
+            display: inline-block;
+            padding: 12px 25px;
+            background: #b71c1c;
+            color: white;
+            border-radius: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #8a1313;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="x">✖</div>
+        <h2>Pagamento Cancelado</h2>
+        <p>Você voltou sem finalizar o pagamento.</p>
+
+        <a class="btn" href="index.html">Tentar novamente</a>
+    </div>
+
+    <script>
+        // 🔥 LIMPA TODO O STATUS DO PAGAMENTO AO ENTRAR AQUI
+        localStorage.removeItem("pagamento_id");
+        localStorage.removeItem("pagamento_status");
+        localStorage.removeItem("pix_expira");
+    </script>
+
+</body>
+</html>

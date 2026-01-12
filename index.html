@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Viva Sorte+</title>
+  <link rel="icon" href="fiveicon.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* Estilos já fornecidos */
+    :root {
+      --azul: #2f4db7;
+      --verde: #43b02a;
+      --cinza: #f4f6fa;
+      --radius: 16px;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #fff;
+    }
+
+    /* HEADER */
+    header {
+      padding: 15px 25px;
+      border-bottom: 1px solid #eee;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 30px;
+    }
+
+    /* IMAGEM */
+   .banner {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.banner-img {
+  width: 100%;
+  height: auto;     /* MOSTRA A IMAGEM INTEIRA */
+  display: block;
+}
+
+
+
+
+
+
+    /* CARD */
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .card small {
+      color: #666;
+    }
+
+    /* QTD */
+    .qtd-box {
+      background: var(--azul);
+      color: #fff;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      margin: 20px 0;
+    }
+
+    .qtd-box button {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: #fff;
+      color: var(--azul);
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .qtd {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    /* TOTAL */
+    .total {
+      font-size: 26px;
+      font-weight: bold;
+      color: var(--azul);
+      margin-bottom: 20px;
+    }
+
+    /* BOTAO */
+    .comprar {
+      width: 100%;
+      padding: 16px;
+      background: var(--verde);
+      color: #fff;
+      font-size: 18px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .comprar:hover {
+      opacity: 0.9;
+    }
+
+    /* ===== SEÇÃO HORA DO VIVA ===== */
+    .sorteios-wrapper {
+      max-width: 1400px;
+      /* largo no desktop */
+      margin: 80px auto;
+      padding: 0 40px;
+    }
+
+    /* TÍTULO */
+    .sorteios-header h2 {
+      color: #f2b705;
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    .sorteios-header small {
+      color: #666;
+    }
+
+    /* GRID DOS CARDS */
+    .sorteios-grid {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    /* CARD */
+    .sorteio-card {
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sorteio-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+    }
+
+    .sorteio-info {
+      padding: 22px;
+    }
+
+    .sorteio-info h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    /* FAIXA DE INFORMAÇÕES */
+.sorteio-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 14px;
+  background: #f4f6fa;
+}
+
+.meta-item {
+  background: #4a63c7;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+.meta-item span {
+  display: block;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.meta-item strong {
+  font-size: 14px;
+}
+
+
+    /* QUANTIDADE */
+    .sorteio-qtd {
+      background: #2f4db7;
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      margin: 15px 0;
+    }
+
+    .sorteio-qtd button {
+      background: #fff;
+      color: #2f4db7;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* PREÇO */
+    .sorteio-preco {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2f4db7;
+      margin-bottom: 10px;
+    }
+
+    /* BOTÃO */
+    .sorteio-btn {
+      margin-top: auto;
+      background: #43b02a;
+      color: #fff;
+      border: none;
+      padding: 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+  .sorteio-card img {
+    height: auto;
+    object-fit: contain;
+    background: #0a2db3; /* cor de fundo caso sobre espaço */
+  }
+}
+
+
+    /* INSTITUIÇÃO (EMBAIXO) */
+    .instituicao-box {
+      margin-top: 80px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .instituicao-box img {
+      max-width: 220px;
+      margin: 20px auto;
+    }
+
+    .instituicao-box h4 {
+      margin-bottom: 10px;
+    }
+
+    .instituicao-box p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    /* MOBILE */
+    @media (max-width: 1024px) {
+      .sorteios-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sorteios-wrapper {
+        padding: 0 20px;
+      }
+    }
+
+    .ganhadores-section {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 0 30px;
+}
+
+.ganhadores-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.ganhadores-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.ganhadores-header p {
+  font-size: 14px;
+  color: #666;
+  margin-top: 6px;
+}
+
+.ganhadores-header a {
+  color: #2b3cff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ver-mais {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* LISTA */
+.ganhadores-lista {
+  display: flex;
+  gap: 20px;
+}
+
+/* CARD */
+.ganhador-card {
+  width: 160px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0b3a53;
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* VALOR */
+.ganhador-valor {
+  padding: 12px;
+  font-size: 13px;
+  background: linear-gradient(to bottom, #1f2a30, transparent);
+}
+
+.ganhador-valor small {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+/* IMAGEM */
+.ganhador-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  background: #14d6ff;
+}
+
+/* INFO */
+.ganhador-info {
+  padding: 12px;
+  background: linear-gradient(to top, #062b3f, transparent);
+}
+
+.ganhador-info strong {
+  display: block;
+  font-size: 13px;
+}
+
+.ganhador-info span {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .ganhadores-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ver-mais {
+    align-self: flex-start;
+  }
+}
+
+
+
+
+    .institucional {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .institucional h3 {
+      color: #2b3cff;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .instituicao-logo {
+      max-width: 220px;
+      margin-bottom: 25px;
+    }
+
+    .institucional h4 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .institucional p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #555;
+      max-width: 900px;
+      margin: 0 auto 15px auto;
+    }
+
+    .rodape {
+      background: #fff;
+      padding: 40px 20px;
+      border-top: 1px solid #eee;
+      margin-top: 60px;
+    }
+
+    .rodape-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: auto;
+      flex-wrap: wrap;
+    }
+
+    .logo-footer {
+      height: 35px;
+    }
+
+    .social a {
+      margin-right: 12px;
+      font-size: 14px;
+      color: #2b3cff;
+      text-decoration: none;
+    }
+
+    .texto-legal {
+      max-width: 1100px;
+      margin: 30px auto;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .rodape-logos {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .rodape-logos img {
+      height: 35px;
+      margin: 10px;
+    }
+
+
+
+
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<!-- SORTEIO PRINCIPAL -->
+
+<body>
+
+  <header>
+    <img src="logo.png" alt="Viva Sorte">
+  </header>
+
+  <div class="container">
+
+    <div class="banner">
+      <img src="BANNER.PNG" alt="Banner Viva Sorte" class="banner-img">
+    </div>
+
+
+
+
+    <div class="card">
+      <h2>Viva Sorte+ - 14/12/2025</h2>
+      <small>Dom, 14 Dez | 2025</small>
+
+      <div class="qtd-box">
+        <button onclick="alterar(-1)">−</button>
+        <span class="qtd" id="qtd">10</span>
+        <button onclick="alterar(1)">+</button>
+      </div>
+
+      <div class="total" id="total">R$ 19,90</div>
+
+      <button class="comprar" onclick="comprar()"><i class="fa-solid fa-cart-shopping"></i> Comprar</button>
+    </div>
+  </div>
+
+  <!-- HORA DO VIVA -->
+
+ <section class="sorteios-wrapper">
+
+  <div class="sorteios-header">
+    <h2>Hora do Viva</h2>
+    <small>Sorteios do Hora do Viva</small>
+  </div>
+
+  <div class="sorteios-grid">
+
+    <div class="sorteio-card" data-price="0.49">
+      <img src="sorteio1.PNG">
+      <div class="sorteio-meta">
+        <div class="meta-item">
+          <span>Edição nº</span>
+          <strong>1643</strong>
+        </div>
+        <div class="meta-item">
+          <span>Sorteio em</span>
+          <strong>2 horas</strong>
+        </div>
+      </div>
+
+      <div class="sorteio-info">
+        <p>HOJE</p>
+        <h3>ÀS 12:30</h3>
+
+        <div class="sorteio-qtd">
+          <button class="btn-menos">-</button>
+          <span class="qtd">20</span>
+          <button class="btn-mais">+</button>
+        </div>
+
+        <div class="sorteio-preco">
+          R$ <span class="preco-total">19,80</span>
+        </div>
+      </div>
+
+      <button class="sorteio-btn"><i class="fa-solid fa-cart-shopping"></i> Adicione ao carrinho</button>
+    </div>
+
+    <div class="sorteio-card" data-price="0.49">
+      <img src="sorteio2.PNG">
+      <div class="sorteio-meta">
+        <div class="meta-item">
+          <span>Edição nº</span>
+          <strong>1643</strong>
+        </div>
+        <div class="meta-item">
+          <span>Sorteio em</span>
+          <strong>2 horas</strong>
+        </div>
+      </div>
+
+      <div class="sorteio-info">
+        <p>HOJE</p>
+        <h3>ÀS 17:00</h3>
+
+        <div class="sorteio-qtd">
+          <button class="btn-menos">-</button>
+          <span class="qtd">20</span>
+          <button class="btn-mais">+</button>
+        </div>
+
+        <div class="sorteio-preco">
+          R$ <span class="preco-total">9,80</span>
+        </div>
+      </div>
+
+      <button class="sorteio-btn"><i class="fa-solid fa-cart-shopping"></i> Adicione ao carrinho</button>
+    </div>
+
+    <div class="sorteio-card" data-price="0.99">
+      <img src="sorteio3.PNG">
+      <div class="sorteio-meta">
+        <div class="meta-item">
+          <span>Edição nº</span>
+          <strong>1643</strong>
+        </div>
+        <div class="meta-item">
+          <span>Sorteio em</span>
+          <strong>2 horas</strong>
+        </div>
+      </div>
+
+      <div class="sorteio-info">
+        <p>HOJE</p>
+        <h3>ÀS 19:30</h3>
+
+        <div class="sorteio-qtd">
+          <button class="btn-menos">-</button>
+          <span class="qtd">20</span>
+          <button class="btn-mais">+</button>
+        </div>
+
+        <div class="sorteio-preco">
+          R$ <span class="preco-total">19,80</span>
+        </div>
+      </div>
+
+      <button class="sorteio-btn"><i class="fa-solid fa-cart-shopping"></i> Adicione ao carrinho</button>
+    </div>
+
+    <div class="sorteio-card" data-price="0.05">
+      <img src="sorteio4.jpg">
+      <div class="sorteio-meta">
+        <div class="meta-item">
+          <span>Edição nº</span>
+          <strong>1643</strong>
+        </div>
+        <div class="meta-item">
+          <span>Sorteio em</span>
+          <strong>2 horas</strong>
+        </div>
+      </div>
+
+      <div class="sorteio-info">
+        <p>Todos os dias</p>
+        <h3>ÀS 13:00</h3>
+
+        <div class="sorteio-qtd">
+          <button class="btn-menos">-</button>
+          <span class="qtd">20</span>
+          <button class="btn-mais">+</button>
+        </div>
+
+        <div class="sorteio-preco">
+          R$ <span class="preco-total">19,80</span>
+        </div>
+      </div>
+
+      <button class="sorteio-btn"><i class="fa-solid fa-cart-shopping"></i> Adicione ao carrinho</button>
+    </div>
+
+    <div class="sorteio-card" data-price="0.29">
+      <img src="sorteio5.PNG">
+      <div class="sorteio-meta">
+        <div class="meta-item">
+          <span>Edição nº</span>
+          <strong>1643</strong>
+        </div>
+        <div class="meta-item">
+          <span>Sorteio em</span>
+          <strong>2 horas</strong>
+        </div>
+      </div>
+
+      <div class="sorteio-info">
+        <p>Todos os dias</p>
+        <h3>ÀS 19:30</h3>
+
+        <div class="sorteio-qtd">
+          <button class="btn-menos">-</button>
+          <span class="qtd">20</span>
+          <button class="btn-mais">+</button>
+        </div>
+
+        <div class="sorteio-preco">
+          R$ <span class="preco-total">19,80</span>
+        </div>
+      </div>
+
+      <button class="sorteio-btn"><i class="fa-solid fa-cart-shopping"></i> Adicione ao carrinho</button>
+    </div>
+
+    <div class="sorteio-card" data-price="0.10">
+      <img src="sorteio6.PNG">
+      <div class="sorteio-meta">
+        <div class="meta-item">
+          <span>Edição nº</span>
+          <strong>1643</strong>
+        </div>
+        <div class="meta-item">
+          <span>Sorteio em</span>
+          <strong>2 horas</strong>
+        </div>
+      </div>
+
+      <div class="sorteio-info">
+        <p>Todos os dias</p>
+        <h3>ÀS 19:30</h3>
+
+        <div class="sorteio-qtd">
+          <button class="btn-menos">-</button>
+          <span class="qtd">20</span>
+          <button class="btn-mais">+</button>
+        </div>
+
+        <div class="sorteio-preco">
+          R$ <span class="preco-total">19,80</span>
+        </div>
+      </div>
+
+      <button class="sorteio-btn"><i class="fa-solid fa-cart-shopping"></i> Adicione ao carrinho</button>
+    </div>
+
+  </div>
+</section>
+  
+
+  <!-- GANHADORES -->
+
+  <section class="ganhadores-section">
+
+  <div class="ganhadores-header">
+    <div>
+      <h2>Ganhadores recentes</h2>
+      <p>
+        Confira os ganhadores do sorteio da edição
+        <a href="#">017</a> de
+        <a href="#">domingo, 28 de dezembro de 2025</a>
+      </p>
+    </div>
+
+    <a href="#" class="ver-mais">ver mais →</a>
+  </div>
+
+  <div class="ganhadores-lista">
+    <div class="ganhador-card">
+      <div class="ganhador-valor">
+        R$ 1.000.000,00<br>
+        <small>Valor líquido</small>
+      </div>
+
+      <img src="ganhador.png" alt="Ganhador">
+
+      <div class="ganhador-info">
+        <strong>Pedro F. M. S.</strong>
+        <span>Camaçari/BA</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- institucional E FOTTER -->
+
+  <section class="institucional">
+      <h3>Instituição beneficiada</h3>
+
+      <img src="logo-hospital-do-cancer-DZVDrvPd.png" alt="Hospital do Câncer de Londrina" class="instituicao-logo">
+
+      <h4>Conheça a história do Hospital do Câncer de Londrina</h4>
+
+      <p>
+        O Hospital do Câncer de Londrina foi idealizado pela ilustre Lucilla Pinto Ballalai e criado
+        em 08 de novembro de 1965. A iniciativa foi desenvolvida em prol do tratamento do câncer
+        e da valorização da qualidade de vida, com aprimoramento constante de recursos humanos,
+        científicos e tecnológicos.
+      </p>
+
+      <p>
+        O Centro Norte Paranaense de Pesquisas Médicas, como era chamado o Hospital do Câncer de
+        Londrina na sua fundação, era destinado inicialmente à prevenção do tumor de colo de útero
+        feminino para as moradoras de Londrina e região.
+      </p>
+    </section>
+
+    <footer class="rodape">
+      <div class="rodape-top">
+        <img src="logo.png" class="logo-footer">
+
+        <div class="social">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+
+      <p class="texto-legal">
+        VIVA SORTE DO DIA E HORA DO VIVA são títulos de capitalização da modalidade filantropia premiável
+        de pagamento único emitido pela VIA CAPITALIZAÇÃO S/A...
+      </p>
+
+      <div class="rodape-logos">
+        <img src="logo-viacap-MEWrE-tV.png">
+        <img src="logo-hospital-do-cancer-DZVDrvPd.png">
+        <img src="logo-edj-BuMAsbYv.png">
+        <img src="seal_google_safe_browsing-judL_Q7p.gif">
+      </div>
+    </footer>
+
+
+  </div>
+
+
+
+
+
+    
+
+  <script>
+    const valorUnitario = 1.99;
+    let quantidade = 10;
+
+    const qtdEl = document.getElementById("qtd");
+    const totalEl = document.getElementById("total");
+
+    function atualizarTela() {
+      qtdEl.innerText = quantidade;
+      totalEl.innerText =
+        "R$ " + (quantidade * valorUnitario).toFixed(2).replace(".", ",");
+    }
+
+    function alterar(v) {
+      quantidade += v;
+      if (quantidade < 1) quantidade = 1;
+      atualizarTela();
+    }
+
+    function comprar() {
+      const valor = (quantidade * valorUnitario).toFixed(2);
+      window.location.href = `/checkout.html?qtd=${quantidade}&valor=${valor}`;
+    }
+
+    atualizarTela();
+  </script>
+
+<script>
+document.querySelectorAll('.sorteio-card').forEach(card => {
+
+  const price = parseFloat(card.dataset.price);
+  const btnMais = card.querySelector('.btn-mais');
+  const btnMenos = card.querySelector('.btn-menos');
+  const qtdEl = card.querySelector('.qtd');
+  const totalEl = card.querySelector('.preco-total');
+  const btnCarrinho = card.querySelector('.sorteio-btn');
+
+  let quantidade = parseInt(qtdEl.innerText);
+
+  function atualizarTotal() {
+    qtdEl.innerText = quantidade;
+    totalEl.innerText = (quantidade * price).toFixed(2).replace('.', ',');
+  }
+
+  btnMais.addEventListener('click', () => {
+    quantidade++;
+    atualizarTotal();
+  });
+
+  btnMenos.addEventListener('click', () => {
+    if (quantidade > 1) {
+      quantidade--;
+      atualizarTotal();
+    }
+  });
+
+  btnCarrinho.addEventListener('click', () => {
+    const valor = (quantidade * price).toFixed(2);
+    window.location.href = `/checkout.html?qtd=${quantidade}&valor=${valor}`;
+  });
+
+  atualizarTotal(); // garante valor inicial correto
+});
+</script>
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

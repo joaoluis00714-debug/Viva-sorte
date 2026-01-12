@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Aguardando Pagamento</title>
+
+<style>
+body {
+  background: #f2f2f2;
+  font-family: Arial;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.card {
+  background: white;
+  width: 350px;
+  margin: auto;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00000015;
+}
+
+.loader {
+  margin: 20px auto;
+  border: 6px solid #eee;
+  border-top-color: #d3ad7f;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: girar 1s linear infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>🔄 Aguardando pagamento...</h2>
+  <p>Assim que o PIX for confirmado você será redirecionado automaticamente.</p>
+  <div class="loader"></div>
+</div>
+
+<script>
+const paymentId = new URLSearchParams(window.location.search).get("payment_id");
+
+if (!paymentId) {
+  document.body.innerHTML = "<h2>Erro: PaymentID não encontrado</h2>";
+  throw new Error("PaymentId ausente");
+}
+
+async function verificarPagamento() {
+  const resp = await fetch(`https://checkout-kaik-production-4bce.up.railway.app/status?payment_id=${paymentId}`);
+  const data = await resp.json();
+
+  if (data.status === "approved") {
+    window.location.href = "/sucesso.html";
+  }
+}
+
+setInterval(verificarPagamento, 3000);
+</script>
+
+</body>
+</html>

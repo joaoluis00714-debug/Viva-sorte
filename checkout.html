@@ -1,0 +1,489 @@
+  <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Checkout - Produto</title>
+  <style>
+    /* Estilos já fornecidos */
+    :root {
+      --azul: #1A73E8;
+      --azul-claro: #E8F0FE;
+      --preto: #1f1f1f;
+      --cinza: #6e6e6e;
+      --radius: 14px;
+    }
+
+    body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #ffffff;
+  margin: 0;
+  padding: 40px 0 0 0; /* centraliza no desktop */
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden; /* previne scroll horizontal */
+  box-sizing: border-box;
+}
+
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      animation: aparecer .4s ease-out;
+      position: relative;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--preto);
+      margin-bottom: 20px;
+    }
+
+    .produto {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      padding: 15px;
+      border-radius: var(--radius);
+      background: var(--azul-claro);
+      margin-bottom: 20px;
+    }
+
+    .produto img {
+      width: 70px;
+      border-radius: var(--radius);
+    }
+
+    .produto-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--preto);
+    }
+
+    .qty-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .qty-box button {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--azul);
+      border: none;
+      font-size: 22px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .qty-box button:hover {
+      background: #1765cb;
+      transform: scale(1.1);
+    }
+
+    #qtd {
+      font-size: 22px;
+      font-weight: bold;
+      color: var(--preto);
+    }
+
+    #total {
+      font-size: 22px;
+      font-weight: bold;
+      color: var(--azul);
+      text-align: center;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 2px solid #ddd;
+      outline: none;
+      margin-bottom: 15px;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--azul);
+      background: var(--azul-claro);
+    }
+
+    button.pagar {
+      width: 100%;
+      padding: 16px;
+      background: var(--azul);
+      color: #fff;
+      font-size: 18px;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: 0.25s;
+      margin-top: 5px;
+    }
+
+    button.pagar:hover {
+      background: #1765cb;
+      transform: scale(1.02);
+    }
+
+    #pixArea {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      animation: aparecer .4s ease-out;
+    }
+
+    #pixCopy {
+      background: var(--azul-claro);
+      padding: 12px;
+      border-radius: var(--radius);
+      word-break: break-all;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    #copyBtn {
+      margin-top: 10px;
+      padding: 10px 18px;
+      background: var(--azul);
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      font-size: 14px;
+    }
+
+    #timer {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: red;
+    }
+
+    /* =========================
+   📱 AJUSTES MOBILE
+========================= */
+@media (max-width: 480px) {
+  body {
+    padding: 20px 12px 0 12px; /* mais espaçamento nas laterais */
+  }
+
+  .container {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    border-radius: 18px;
+  }
+}
+  
+  h2 {
+    font-size: 22px;
+  }
+  
+  .produto {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .produto img {
+    width: 60px;
+  }
+  
+  .produto-title {
+    font-size: 16px;
+  }
+  
+  .qty-box {
+    margin: 15px 0;
+    gap: 20px;
+  }
+  
+  .qty-box button {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+  
+  #qtd {
+    font-size: 24px;
+  }
+  
+  #total {
+    font-size: 24px;
+    margin-top: 8px;
+  }
+  
+  input {
+    font-size: 16px;
+    padding: 16px;
+  }
+  
+  button.pagar {
+    font-size: 18px;
+    padding: 18px;
+    border-radius: 16px;
+  }
+  
+  #pixArea img {
+    width: 220px;
+    max-width: 100%;
+  }
+  
+  #pixCopy {
+    font-size: 14px;
+  }
+  
+  #timer {
+    font-size: 16px;
+  }
+}
+
+
+    
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="logo.png" alt="Logo" class="logo">
+    <h2>Finalizar Pedido</h2>
+
+    <div class="produto">
+      <img src="product.jpg" alt="Produto">
+      <div>
+        <div class="produto-title">Rifa do Milhão Viva Sorte</div>
+        <small>Valor unitário: <b>R$ 1,99</b></small>
+      </div>
+    </div>
+
+    <div class="qty-box">
+      <button onclick="alterar(-1)">−</button>
+      <span id="qtd">1</span>
+      <button onclick="alterar(1)">+</button>
+    </div>
+
+    <span id="total">R$ 0,20</span>
+
+    <form id="form">
+      <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
+      <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+      <input type="email" id="email" name="email" placeholder="E-mail" required>
+      <input type="date" id="nascimento" name="nascimento" required>
+      <input type="text" id="telefone" name="telefone" placeholder="Telefone" required>
+
+      <button class="pagar" type="submit">Pagar com PIX</button>
+    </form>
+
+    <div id="pixArea">
+      <h3>Escaneie o QR Code</h3>
+      <img id="pixImg" width="240">
+      <p id="pixCopy"></p>
+      <button id="copyBtn" onclick="copiar()">Copiar código PIX</button>
+      <p id="timer"></p>
+      <p style="color: var(--cinza);">Aguardando pagamento...</p>
+    </div>
+  </div>
+
+<script>
+/* =============================
+   🔹 STATUS
+============================= */
+const st = localStorage.getItem("statusPagamento");
+if (st === "cancelado" || st === "aprovado") {
+  localStorage.removeItem("statusPagamento");
+}
+
+/* =============================
+   🔹 DADOS DO HOME
+============================= */
+const params = new URLSearchParams(window.location.search);
+
+let quantidade = parseInt(params.get("qtd"), 10);
+let valorTotal = parseFloat(params.get("valor"));
+
+if (!quantidade || quantidade < 1) quantidade = 1;
+if (!valorTotal || valorTotal <= 0) valorTotal = 1.99;
+
+const valorUnitario = valorTotal / quantidade;
+
+/* =============================
+   🔹 ELEMENTOS
+============================= */
+const qtdEl = document.getElementById("qtd");
+const totalEl = document.getElementById("total");
+
+/* =============================
+   🔹 TELA
+============================= */
+function atualizarTela() {
+  qtdEl.innerText = quantidade;
+  totalEl.innerText =
+    "R$ " + (quantidade * valorUnitario).toFixed(2);
+}
+
+function alterar(v) {
+  quantidade += v;
+  if (quantidade < 1) quantidade = 1;
+  atualizarTela();
+}
+
+atualizarTela();
+
+/* =============================
+   🔹 COPIAR PIX
+============================= */
+function copiar() {
+  navigator.clipboard.writeText(
+    document.getElementById("pixCopy").innerText
+  );
+  alert("Código copiado!");
+}
+
+/* =============================
+   🔹 PAGAMENTO
+============================= */
+let timerInterval;
+
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const body = {
+    nome: nome.value,
+    cpf: cpf.value,
+    email: email.value,
+    nascimento: nascimento.value,
+    telefone: telefone.value,
+    quantidade: quantidade,
+    valor: (quantidade * valorUnitario).toFixed(2)
+  };
+
+  const req = await fetch("/criar-pagamento", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+
+  const res = await req.json();
+
+  if (res.erro) {
+    alert("Erro ao gerar o PIX");
+    return;
+  }
+
+  localStorage.setItem("statusPagamento", "pendente");
+
+  document.getElementById("pixImg").src =
+    "data:image/png;base64," + res.qr;
+  document.getElementById("pixCopy").innerText = res.code;
+
+  document.getElementById("pixArea").style.display = "block";
+  document.getElementById("form").style.display = "none";
+
+  iniciarTimer();
+  verificar(res.id);
+});
+
+/* =============================
+   🔹 VERIFICAÇÃO
+============================= */
+async function verificar(id) {
+  const loop = setInterval(async () => {
+    const r = await fetch(`/verificar/${id}`);
+    const data = await r.json();
+
+    if (data.status === "approved") {
+  clearInterval(loop);
+
+  const valorPago = (quantidade * valorUnitario).toFixed(2);
+
+  localStorage.setItem("statusPagamento", "aprovado");
+  localStorage.setItem("pagamento_aprovado", "true");
+  localStorage.setItem("valor_pago", valorPago);
+  localStorage.setItem("valor_cota", valorUnitario);
+
+  window.location.href = "/sucesso";
+}
+
+  }, 4000);
+}
+
+/* =============================
+   🔹 TIMER
+============================= */
+function iniciarTimer() {
+  let tempo = 600;
+
+  timerInterval = setInterval(() => {
+    const min = Math.floor(tempo / 60);
+    const sec = tempo % 60;
+
+    document.getElementById("timer").innerText =
+      `Expira em ${min}:${sec < 10 ? "0" : ""}${sec}`;
+
+    tempo--;
+
+    if (tempo < 0) {
+      clearInterval(timerInterval);
+      localStorage.setItem("statusPagamento", "cancelado");
+      window.location.href = "/cancelado.html";
+    }
+  }, 1000);
+}
+
+/* =============================
+   🔹 VOLTAR
+============================= */
+window.addEventListener("pageshow", (event) => {
+  const status = localStorage.getItem("statusPagamento");
+  if (event.persisted && status === "pendente") {
+    window.location.href = "/cancelado.html";
+  }
+});
+</script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
